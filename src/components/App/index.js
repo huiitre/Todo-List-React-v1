@@ -14,7 +14,7 @@ import Main from '../Main';
 const App = () => {
   const [tasks, setTasks] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [editMode, setEditMode] = useState(false);
+  const [editTask, setEditTask] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,16 +33,12 @@ const App = () => {
     fetchData();
   }, []);
 
-  const changeEditMode = (id) => {
-    console.log(`change edit mode ${id}`);
-    console.log(tasks);
-  };
   return (
     <div className="container">
       <Header categories={categories} />
       <Main
-        editMode={editMode}
-        setEditMode={setEditMode}
+        editTask={editTask}
+        setEditTask={setEditTask}
         categories={categories}
         tasks={tasks}
       />

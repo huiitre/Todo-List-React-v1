@@ -1,3 +1,4 @@
+/* eslint-disable brace-style */
 import propTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -8,23 +9,33 @@ const Task = ({
   completion,
   category,
   status,
-  setEditMode,
-  editMode,
+  setEditTask,
+  editTask,
 }) => {
-  let editOrNot = false;
   // console.log(category);
-  const handleEdit = () => {
-    editOrNot = !editOrNot;
+  let varClass = 'task';
+
+  const handleEdit = (evt) => {
+    console.log(evt.target);
+    const task = evt.target.closest('.task');
+    task.classList.add('task--edit');
   };
 
-  let varClass = 'task';
+  const handleChange = (evt) => {
+    const value = evt.target.value;
+    setEditTask(value);
+  };
+
   if (status === 2) {
     varClass += ' task--archive';
+  } else {
+    varClass += ' task--todo';
   }
   if (completion === 100) {
     varClass += ' task--complete';
+  } else {
+    varClass += ' task--todo';
   }
-  varClass += ' task--todo';
 
   return (
     <div className={varClass} id={id}>
@@ -41,6 +52,8 @@ const Task = ({
             type="text"
             placeholder="Titre de la tâche"
             name="title"
+            value={editTask}
+            onChange={handleChange}
           />
         </div>
         <div className="task__category">
@@ -115,8 +128,8 @@ Task.propTypes = {
   title: propTypes.string.isRequired,
   completion: propTypes.number.isRequired,
   category: propTypes.object.isRequired,
-  setEditMode: propTypes.func.isRequired,
-  editMode: propTypes.bool.isRequired,
+  setEditTask: propTypes.func.isRequired,
+  editTask: propTypes.bool.isRequired,
   status: propTypes.number.isRequired,
 };
 
