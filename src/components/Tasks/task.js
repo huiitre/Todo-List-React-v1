@@ -1,6 +1,7 @@
 /* eslint-disable brace-style */
 import propTypes from 'prop-types';
 import classNames from 'classnames';
+import { useEffect } from 'react';
 
 // eslint-disable-next-line arrow-body-style
 const Task = ({
@@ -12,21 +13,42 @@ const Task = ({
   setEditTask,
   editTask,
 }) => {
-  // console.log(category);
-  let varClass = 'task';
-
+  //! méthode qui remplace le titre par l'input d'édition
   const handleEdit = (evt) => {
-    console.log(evt.target);
+    //* on récupère le parent principal de l'event
     const task = evt.target.closest('.task');
+
+    //* on lui applique la classe pour afficher l'input à la place du titre
     task.classList.add('task--edit');
+
+    //* on récupère l'input depuis le parent et on lui applique le focus()
+    task.querySelector('.task__title-field').focus();
   };
 
+  //! méthode qui applique le champ contrôlé sur l'input
   const handleChange = (evt) => {
-    const value = evt.target.value;
-    setEditTask(value);
+    //* on récupère la value de l'input
+    //* puis on l'envoie avec l'id de l'input à la méthode setEditTask qui va remplir le hooks
+    const { value } = evt.target;
+    setEditTask({ value: value, id: id });
   };
 
-  if (status === 2) {
+  //! méthode qui finalise l'édition avec un blur (perte de focus de l'input)
+  const handleBlur = (evt) => {
+    const task = evt.target.closest('.task');
+    task.classList.remove('task--edit');
+    // setUpdateTask(id);
+  };
+
+  //! méthode qui finalise l'édition avec un kewDown (pression sur "Enter")
+  const handleKeyDown = (evt) => {
+    if (evt.key === 'Enter') {
+      const task = evt.target.closest('.task');
+      task.classList.remove('task--edit');
+    }
+  };
+
+  /* if (status === 2) {
     varClass += ' task--archive';
   } else {
     varClass += ' task--todo';
@@ -35,10 +57,12 @@ const Task = ({
     varClass += ' task--complete';
   } else {
     varClass += ' task--todo';
-  }
+  } */
+
+  const classList = classNames('task', { 'task--archive': status === 2 }, { 'task--complete': completion === 100 }, { 'task--todo': status !== 2 && completion !== 100 });
 
   return (
-    <div className={varClass} id={id}>
+    <div className={classList} id={id}>
       <div className="task__content">
         <div className="task__title">
           <p
@@ -54,6 +78,8 @@ const Task = ({
             name="title"
             value={editTask}
             onChange={handleChange}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div className="task__category">
@@ -129,8 +155,9 @@ Task.propTypes = {
   completion: propTypes.number.isRequired,
   category: propTypes.object.isRequired,
   setEditTask: propTypes.func.isRequired,
-  editTask: propTypes.bool.isRequired,
+  editTask: propTypes.string.isRequired,
   status: propTypes.number.isRequired,
+  // setUpdateTask: propTypes.func.isRequired,
 };
 
 export default Task;

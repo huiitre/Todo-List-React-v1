@@ -1,47 +1,41 @@
 // == Import
 import './style.scss';
-import './css/font-awesome.css';
-import './css/bulma.css';
+import '../../assets/css/font-awesome.css';
+import '../../assets/css/bulma.css';
 
-import { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import axios from 'axios';
+import { useState } from 'react';
 
 import Header from '../Header';
 import Main from '../Main';
+import Spinner from '../Spinner';
+
+import { apiGet, postApi } from '../../hooks';
 
 // == Composant
 const App = () => {
-  const [tasks, setTasks] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [editTask, setEditTask] = useState('');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const tasksData = await axios.get('http://localhost:1234/tasks');
-        const categoriesData = await axios.get('http://localhost:1234/categories');
-
-        setTasks(tasksData.data);
-        setCategories(categoriesData.data);
-      }
-      catch (error) {
-        console.error(error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
+  // const [tasks, setTasks] = useState([]);
+  // const [categories, setCategories] = useState([]);
+  const [editTask, setEditTask] = useState([]);
+  const [label, setLabel] = useState([]);
+  const [tasks, loadingTasks] = apiGet('http://localhost:1234/tasks');
+  const [categories, loadingCategories] = apiGet('http://localhost:1234/categories');
 
   return (
     <div className="container">
       <Header categories={categories} />
-      <Main
-        editTask={editTask}
-        setEditTask={setEditTask}
-        categories={categories}
-        tasks={tasks}
-      />
+      {(loadingTasks || loadingCategories) && <Spinner />}
+      {(!loadingTasks || !loadingCategories) && (
+        <>
+          <Main
+            label={label}
+            setLabel={setLabel}
+            editTask={editTask}
+            setEditTask={setEditTask}
+            categories={categories}
+            tasks={tasks}
+          />
+        </>
+      )}
     </div>
   );
 };

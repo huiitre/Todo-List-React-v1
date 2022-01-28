@@ -7,10 +7,22 @@ const Main = ({
   categories,
   setEditTask,
   editTask,
+  addTask,
+  setLabel,
+  label,
 }) => (
   <main>
-    <Form categories={categories} />
-    <Tasks setEditTask={setEditTask} tasks={tasks} editTask={editTask} />
+    <Form
+      categories={categories}
+      addTask={addTask}
+      setLabel={setLabel}
+      label={label}
+    />
+    <Tasks
+      setEditTask={setEditTask}
+      tasks={tasks}
+      editTask={editTask}
+    />
   </main>
 );
 
@@ -18,7 +30,8 @@ Main.propTypes = {
   tasks: propTypes.array.isRequired,
   categories: propTypes.array.isRequired,
   setEditTask: propTypes.func.isRequired,
-  editTask: propTypes.bool.isRequired,
+  editTask: propTypes.array.isRequired,
+  // setUpdateTask: propTypes.func.isRequired,
 };
 
 export default Main;

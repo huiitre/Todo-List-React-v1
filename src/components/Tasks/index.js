@@ -1,14 +1,18 @@
 import propTypes from 'prop-types';
 import Task from './task';
 
-const Tasks = ({ tasks, setEditTask, editTask }) => (
+const Tasks = ({
+  tasks,
+  setEditTask,
+  editTask,
+}) => (
   <div className="tasks">
     {/* LISTE DES TODOS ICI */},
     {
-      tasks.map(
-        (task) => <Task editTask={editTask} setEditTask={setEditTask} key={task.id} {...task} />,
-      )
-    }
+        tasks.map(
+          (task) => <Task editTask={editTask.id === task.id ? editTask.value : ''} setEditTask={setEditTask} key={task.id} {...task} />,
+        )
+      }
   </div>
 );
 
@@ -19,7 +23,12 @@ Tasks.propTypes = {
     }),
   ).isRequired,
   setEditTask: propTypes.func.isRequired,
-  editTask: propTypes.bool.isRequired,
+  editTask: propTypes.arrayOf(
+    propTypes.shape({
+
+    }),
+  ).isRequired,
+  // setUpdateTask: propTypes.func.isRequired,
 };
 
 export default Tasks;
