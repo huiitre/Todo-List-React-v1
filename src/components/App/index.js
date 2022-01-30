@@ -27,8 +27,8 @@ const App = () => {
   // ? gestion d'erreur si task add ou non
   const [errorAddTask, setErrorAddTask] = useState(false);
   // ? requêtes api GET pour /tasks et /categories
-  const [tasks, loadingTasks] = apiGet('http://localhost:1234/tasks');
-  const [categories, loadingCategories] = apiGet('http://localhost:1234/categories');
+  const [tasks, loadingTasks, setTasks, setLoadingTasks] = apiGet('http://localhost:1234/tasks');
+  const [categories, loadingCategories, setCategories, setLoadingCategories] = apiGet('http://localhost:1234/categories');
 
   const addTask = () => {
     if (categoryLabel !== 0 && label !== '') {
@@ -42,6 +42,15 @@ const App = () => {
         .then(((response) => {
         // setState(response.data);
           console.log(response.data);
+          const addedTask = {
+            id: response.data.id,
+            title: response.data.title,
+            category_id: response.data.category_id,
+            category: {
+              id: response.data.category.id,
+              name: response.data.category.name,
+            },
+          };
         }))
         .catch(() => console.log('error'));
     } else {

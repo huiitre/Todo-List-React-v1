@@ -20,7 +20,7 @@ const apiGet = (url) => {
     },
     [],
   );
-  return [state, loading];
+  return [state, loading, setState, setLoading];
 };
 
 export default apiGet;
