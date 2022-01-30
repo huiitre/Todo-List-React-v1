@@ -1,13 +1,18 @@
-/* eslint-disable arrow-body-style */
+/* eslint-disable brace-style */
+import './style.scss';
 import propTypes from 'prop-types';
 
-const Select = ({ categories }) => {
+const Select = ({ categories, setCategoryLabel }) => {
+  const classList = 'filters__choice';
+  const handleChange = (evt) => {
+    setCategoryLabel(Number(evt.target.value));
+  };
   return (
-    <select className="filters__choice">
-      <option>Choisir une catégorie</option>
+    <select className={classList} onChange={handleChange}>
+      <option value={0}>Choisir une catégorie</option>
       {
         categories.map(
-          (val) => <option key={val.id}>{val.name}</option>,
+          (val) => <option value={val.id} key={val.id}>{val.name}</option>,
         )
       }
     </select>
@@ -21,6 +26,7 @@ Select.propTypes = {
       name: propTypes.string.isRequired,
     }),
   ).isRequired,
+  setCategoryLabel: propTypes.func.isRequired,
 };
 
 export default Select;

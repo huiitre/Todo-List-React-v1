@@ -1,17 +1,26 @@
+import { setTimeout } from 'core-js';
 import propTypes from 'prop-types';
 import Select from '../Select';
+import './style.scss';
 
-const Form = ({ categories, addTask, setLabel, label }) => {
-  /* const handleSubmit = (evt) => {
+const Form = ({
+  categories,
+  addTask,
+  setLabel,
+  label,
+  setCategoryLabel,
+  errorAddTask,
+}) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
     addTask();
-  }; */
+  };
   const handleChange = (evt) => {
     setLabel(evt.target.value);
   };
   return (
     <div className="task task--add">
-      <form method="POST">
+      <form method="POST" onSubmit={handleSubmit}>
         <div className="task__content">
           <div className="task__title">
             <p className="task__title-label" />
@@ -26,12 +35,15 @@ const Form = ({ categories, addTask, setLabel, label }) => {
           </div>
           <div className="task__category">
             <div className="select is-small">
-              <Select categories={categories} />
+              <Select
+                setCategoryLabel={setCategoryLabel}
+                categories={categories}
+              />
             </div>
           </div>
           <div className="task__buttons">
             <button
-              type="button"
+              type="submit"
               className="task__button task__button--add button is-info"
             >
               <span className="icon is-small">
@@ -40,6 +52,13 @@ const Form = ({ categories, addTask, setLabel, label }) => {
               <span>Ajouter</span>
             </button>
           </div>
+          {
+            errorAddTask && (
+            <div className="task__error">
+              La tâche n'a pas été envoyée !
+            </div>
+            )
+          }
         </div>
       </form>
     </div>
@@ -48,6 +67,11 @@ const Form = ({ categories, addTask, setLabel, label }) => {
 
 Form.propTypes = {
   categories: propTypes.array.isRequired,
+  setLabel: propTypes.func.isRequired,
+  label: propTypes.string.isRequired,
+  addTask: propTypes.func.isRequired,
+  setCategoryLabel: propTypes.func.isRequired,
+  errorAddTask: propTypes.bool.isRequired,
 };
 
 export default Form;

@@ -1,7 +1,6 @@
 /* eslint-disable brace-style */
 import propTypes from 'prop-types';
 import classNames from 'classnames';
-import { useEffect } from 'react';
 
 // eslint-disable-next-line arrow-body-style
 const Task = ({
@@ -48,18 +47,12 @@ const Task = ({
     }
   };
 
-  /* if (status === 2) {
-    varClass += ' task--archive';
-  } else {
-    varClass += ' task--todo';
-  }
-  if (completion === 100) {
-    varClass += ' task--complete';
-  } else {
-    varClass += ' task--todo';
-  } */
-
-  const classList = classNames('task', { 'task--archive': status === 2 }, { 'task--complete': completion === 100 }, { 'task--todo': status !== 2 && completion !== 100 });
+  const classList = classNames(
+    'task',
+    { 'task--archive': status === 2 },
+    { 'task--complete': completion === 100 },
+    { 'task--todo': status !== 2 && completion !== 100 },
+  );
 
   return (
     <div className={classList} id={id}>

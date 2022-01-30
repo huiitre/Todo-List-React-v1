@@ -9,10 +9,11 @@ const Tasks = ({
   <div className="tasks">
     {/* LISTE DES TODOS ICI */},
     {
-        tasks.map(
-          (task) => <Task editTask={editTask.id === task.id ? editTask.value : ''} setEditTask={setEditTask} key={task.id} {...task} />,
-        )
-      }
+      //* slice(0).reserve() remplace le prepend()
+      tasks.slice(0).reverse().map(
+        (task) => <Task editTask={editTask.id === task.id ? editTask.value : ''} setEditTask={setEditTask} key={task.id} {...task} />,
+      )
+    }
   </div>
 );
 
@@ -23,9 +24,10 @@ Tasks.propTypes = {
     }),
   ).isRequired,
   setEditTask: propTypes.func.isRequired,
-  editTask: propTypes.arrayOf(
+  editTask: propTypes.objectOf(
     propTypes.shape({
-
+      id: propTypes.number.isRequired,
+      value: propTypes.string.isRequired,
     }),
   ).isRequired,
   // setUpdateTask: propTypes.func.isRequired,

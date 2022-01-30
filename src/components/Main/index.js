@@ -10,6 +10,8 @@ const Main = ({
   addTask,
   setLabel,
   label,
+  setCategoryLabel,
+  errorAddTask,
 }) => (
   <main>
     <Form
@@ -17,6 +19,8 @@ const Main = ({
       addTask={addTask}
       setLabel={setLabel}
       label={label}
+      setCategoryLabel={setCategoryLabel}
+      errorAddTask={errorAddTask}
     />
     <Tasks
       setEditTask={setEditTask}
@@ -30,7 +34,12 @@ Main.propTypes = {
   tasks: propTypes.array.isRequired,
   categories: propTypes.array.isRequired,
   setEditTask: propTypes.func.isRequired,
-  editTask: propTypes.array.isRequired,
+  editTask: propTypes.object.isRequired,
+  setLabel: propTypes.func.isRequired,
+  label: propTypes.string.isRequired,
+  addTask: propTypes.func.isRequired,
+  setCategoryLabel: propTypes.func.isRequired,
+  errorAddTask: propTypes.bool.isRequired,
   // setUpdateTask: propTypes.func.isRequired,
 };
 

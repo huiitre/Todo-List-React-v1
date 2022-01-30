@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import Select from '../Select';
 
-const Header = ({ categories }) => (
+const Header = ({ categories, setCategoryLabel }) => (
   <header className="header">
     <div className="logo">
       <a href=".">
@@ -24,7 +24,7 @@ const Header = ({ categories }) => (
         </button>
       </div>
       <div className="filters__task filters__task--category select is-small">
-        <Select categories={categories} />
+        <Select setCategoryLabel={setCategoryLabel} categories={categories} />
       </div>
       <div className="filters__task filters__task--archived">
         <a className="filters__choice" href="#">
@@ -40,6 +40,7 @@ const Header = ({ categories }) => (
 
 Header.propTypes = {
   categories: propTypes.array.isRequired,
+  setCategoryLabel: propTypes.func.isRequired,
 };
 
 export default Header;
