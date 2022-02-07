@@ -1,13 +1,12 @@
 /* eslint-disable brace-style */
 import propTypes from 'prop-types';
-import classNames from 'classnames';
 
 // eslint-disable-next-line arrow-body-style
-const Task = () => (
+const Task = ({ title, category, completion, status }) => (
   <div className="task task--todo">
     <div className="task__content">
       <div className="task__title">
-        <p className="task__title-label">titre</p>
+        <p className="task__title-label">{title}</p>
         <input
           className="task__title-field input"
           type="text"
@@ -16,7 +15,7 @@ const Task = () => (
         />
       </div>
       <div className="task__category">
-        <p>catégorie</p>
+        <p>{category.name}</p>
         <input
           className="task__category-field input"
           type="text"
@@ -76,9 +75,21 @@ const Task = () => (
       </div>
     </div>
     <div className="progress-bar">
-      <div className="progress-bar__level" style={{ width: '50%' }} />
+      <div className="progress-bar__level" style={{ width: `${completion}%` }} />
     </div>
   </div>
 );
+
+Task.propTypes = {
+  title: propTypes.string.isRequired,
+  completion: propTypes.number.isRequired,
+  status: propTypes.number.isRequired,
+  category: propTypes.objectOf(
+    propTypes.shape({
+      id: propTypes.number.isRequired,
+      name: propTypes.string.isRequired,
+    }),
+  ).isRequired,
+};
 
 export default Task;

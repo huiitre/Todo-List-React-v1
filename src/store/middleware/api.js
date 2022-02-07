@@ -1,14 +1,11 @@
 import axios from 'axios';
+import { loadTasksFromApi, LOAD_TASKS_FROM_API } from '../actions';
 
 export const apiMiddleware = (store) => (next) => (action) => {
-  axios
-    .get('http://localhost:1234/tasks')
-    .then((response) => {
-      console.log('success', response);
-    })
-    .catch((error) => {
-      console.log('error', error);
-    });
+  switch (action.type) {
+    default:
+      next(action);
+  }
 };
 
 export default apiMiddleware;
