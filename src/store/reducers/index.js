@@ -1,4 +1,4 @@
-import { IS_LOADED_TASKS, LOAD_TASKS_FROM_API, SET_NEW_TASK } from '../actions';
+import { LOAD_SPINNER, LOAD_TASKS_FROM_API, SET_NEW_TASK } from '../actions';
 
 /* eslint-disable spaced-comment */
 const initialState = {
@@ -7,6 +7,9 @@ const initialState = {
 
   //? gère l'input controlé du formulaire d'ajout d'une tâche
   newTaskValue: '',
+
+  //? gère l'affichage du spinner
+  loadSpinner: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -21,6 +24,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         tasks: [...state.tasks, ...action.tasks],
+      };
+    }
+    case LOAD_SPINNER: {
+      return {
+        ...state,
+        loadSpinner: !state.loadSpinner,
       };
     }
     default:

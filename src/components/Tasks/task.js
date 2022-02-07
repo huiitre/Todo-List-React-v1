@@ -2,7 +2,9 @@
 import propTypes from 'prop-types';
 
 // eslint-disable-next-line arrow-body-style
-const Task = ({ title, category, completion, status }) => (
+const Task = ({
+  title, category, completion, status
+}) => (
   <div className="task task--todo">
     <div className="task__content">
       <div className="task__title">
@@ -84,12 +86,7 @@ Task.propTypes = {
   title: propTypes.string.isRequired,
   completion: propTypes.number.isRequired,
   status: propTypes.number.isRequired,
-  category: propTypes.objectOf(
-    propTypes.shape({
-      id: propTypes.number.isRequired,
-      name: propTypes.string.isRequired,
-    }),
-  ).isRequired,
+  category: propTypes.object.isRequired,
 };
 
 export default Task;

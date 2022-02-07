@@ -13,3 +13,10 @@ export const loadTasksFromApi = (tasks) => ({
   type: LOAD_TASKS_FROM_API,
   tasks,
 });
+
+//* ACTION TYPE LOAD_SPINNER
+export const LOAD_SPINNER = 'LOAD_SPINNER';
+//* ACTION CREATOR loadSpinner
+export const loadSpinner = () => ({
+  type: LOAD_SPINNER,
+});

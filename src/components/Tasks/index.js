@@ -5,7 +5,7 @@ const Tasks = () => {
   const tasks = useSelector((state) => state.tasks);
   return (
     <div className="tasks">
-      {tasks.map((item) => (
+      {tasks.slice(0).reverse().map((item) => (
         <Task key={item.id} {...item} />
       ))}
     </div>
