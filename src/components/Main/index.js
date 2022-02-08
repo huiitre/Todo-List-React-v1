@@ -1,4 +1,3 @@
-import propTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import Tasks from '../Tasks';
 import Form from '../Form';

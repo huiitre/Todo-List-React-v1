@@ -1,15 +1,19 @@
-import propTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNewTask } from '../../store/actions';
+import { addNewTask, setNewTask } from '../../store/actions';
 import Select from '../Select';
 import './style.scss';
 
 const Form = () => {
   const dispatch = useDispatch();
   const newTaskValue = useSelector((state) => state.newTaskValue);
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    console.log('submit');
+    dispatch(addNewTask());
+  };
   return (
     <div className="task task--add">
-      <form method="POST">
+      <form method="POST" onSubmit={handleSubmit}>
         <div className="task__content">
           <div className="task__title">
             <p className="task__title-label" />

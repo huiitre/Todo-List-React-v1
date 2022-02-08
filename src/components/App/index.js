@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Header from '../Header';
 import Main from '../Main';
-import { loadTasksFromApi, loadSpinner } from '../../store/actions';
+import { loadTasksFromApi, loadTasks } from '../../store/actions';
 
 // == Composant
 const App = () => {
@@ -19,17 +19,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadSpinner());
-    axios
-      .get('http://localhost:1234/tasks')
-      .then((response) => {
-        // console.log('success', response);
-        dispatch(loadTasksFromApi(response.data));
-        dispatch(loadSpinner());
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
+    dispatch(loadTasks());
   }, []);
 
   return (

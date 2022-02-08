@@ -1,4 +1,10 @@
-import { LOAD_SPINNER, LOAD_TASKS_FROM_API, SET_NEW_TASK } from '../actions';
+import {
+  LOAD_TASKS,
+  LOAD_TASKS_FROM_API,
+  SET_NEW_TASK,
+  SET_NEW_CATEGORY,
+  INSERT_NEW_TASK_ON_API,
+} from '../actions';
 
 /* eslint-disable spaced-comment */
 const initialState = {
@@ -7,6 +13,9 @@ const initialState = {
 
   //? gère l'input controlé du formulaire d'ajout d'une tâche
   newTaskValue: '',
+
+  //? gère le select controlé du formulaire d'ajout d'une tâche
+  newCategoryValue: 0,
 
   //? gère l'affichage du spinner
   loadSpinner: false,
@@ -20,16 +29,32 @@ const reducer = (state = initialState, action = {}) => {
         newTaskValue: action.newTaskValue,
       };
     }
+    case SET_NEW_CATEGORY: {
+      return {
+        ...state,
+        newCategoryValue: action.newCategoryValue,
+      };
+    }
     case LOAD_TASKS_FROM_API: {
       return {
         ...state,
         tasks: [...state.tasks, ...action.tasks],
+        categories: [...state.categories, ...action.categories],
+        loadSpinner: false,
       };
     }
-    case LOAD_SPINNER: {
+    case LOAD_TASKS: {
       return {
         ...state,
-        loadSpinner: !state.loadSpinner,
+        loadSpinner: true,
+      };
+    }
+    case INSERT_NEW_TASK_ON_API: {
+      console.log(action.newTask);
+      console.log(state.tasks);
+      return {
+        ...state,
+        tasks: [...state.tasks, action.newTask],
       };
     }
     default:
