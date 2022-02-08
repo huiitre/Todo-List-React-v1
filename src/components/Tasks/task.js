@@ -3,8 +3,7 @@ import propTypes from 'prop-types';
 
 // eslint-disable-next-line arrow-body-style
 const Task = ({
-  title, category, completion, status
-}) => (
+  title, category, completion }) => (
   <div className="task task--todo">
     <div className="task__content">
       <div className="task__title">
