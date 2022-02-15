@@ -1,5 +1,8 @@
+/* eslint-disable brace-style */
+import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewTask, setNewTask } from '../../store/actions';
+import PropTypes from 'prop-types';
+import { addNewTask, setNewTask, setIsError } from '../../store/actions';
 import Field from '../Field';
 import Select from '../Select';
 import './style.scss';
@@ -9,14 +12,25 @@ const Form = () => {
 
   const newTaskValue = useSelector((state) => state.newTaskValue);
 
+  const newCategoryValue = useSelector((state) => state.newCategoryValue);
+
+  const isError = useSelector((state) => state.isError);
+
+  const classNamesError = classNames('task__error', { 'is-hidden': !isError });
+
   const changeFieldValue = (value) => {
     dispatch(setNewTask(value));
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log('submit');
-    dispatch(addNewTask());
+    if (newTaskValue !== '' && newCategoryValue != '0') {
+      dispatch(addNewTask());
+      dispatch(setIsError(false));
+    } else {
+      console.log('champ vide');
+      dispatch(setIsError(true));
+    }
   };
 
   return (
@@ -49,7 +63,7 @@ const Form = () => {
               <span>Ajouter</span>
             </button>
           </div>
-          <div className="task__error">La tâche n'a pas été envoyée !</div>
+          <div className={classNamesError}>Veuillez remplir tous les champs</div>
         </div>
       </form>
     </div>

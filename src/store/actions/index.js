@@ -44,3 +44,11 @@ export const insertNewTaskOnApi = (newTask) => ({
   type: INSERT_NEW_TASK_ON_API,
   newTask,
 });
+
+//* ACTION TYPE SET_IS_ERROR
+export const SET_IS_ERROR = 'SET_IS_ERROR';
+//* ACTION CREATOR setIsError
+export const setIsError = (bool) => ({
+  type: SET_IS_ERROR,
+  isError: bool,
+});

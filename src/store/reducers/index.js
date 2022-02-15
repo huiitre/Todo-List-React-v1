@@ -4,6 +4,7 @@ import {
   SET_NEW_TASK,
   SET_NEW_CATEGORY,
   INSERT_NEW_TASK_ON_API,
+  SET_IS_ERROR,
 } from '../actions';
 
 /* eslint-disable spaced-comment */
@@ -19,6 +20,9 @@ const initialState = {
 
   //? gère l'affichage du spinner
   loadSpinner: false,
+
+  //? gère le message d'erreur du formulaire d'ajout d'une tâche
+  isError: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -55,6 +59,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         tasks: [...state.tasks, action.newTask],
+      };
+    }
+    case SET_IS_ERROR: {
+      return {
+        ...state,
+        isError: action.isError,
       };
     }
     default:
