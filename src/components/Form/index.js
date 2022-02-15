@@ -1,29 +1,36 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewTask, setNewTask } from '../../store/actions';
+import Field from '../Field';
 import Select from '../Select';
 import './style.scss';
 
 const Form = () => {
   const dispatch = useDispatch();
+
   const newTaskValue = useSelector((state) => state.newTaskValue);
+
+  const changeFieldValue = (value) => {
+    dispatch(setNewTask(value));
+  };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     console.log('submit');
     dispatch(addNewTask());
   };
+
   return (
     <div className="task task--add">
       <form method="POST" onSubmit={handleSubmit}>
         <div className="task__content">
           <div className="task__title">
             <p className="task__title-label" />
-            <input
-              onChange={(evt) => dispatch(setNewTask(evt.target.value))}
-              className="task__title-field input"
-              type="text"
-              placeholder="Titre de la tâche"
+            <Field
               name="title"
+              placeholder="titre de la tâche"
+              type="text"
               value={newTaskValue}
+              onChange={changeFieldValue}
             />
           </div>
           <div className="task__category">
